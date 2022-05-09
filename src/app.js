@@ -40,7 +40,7 @@ app.get('/', (req, res) => {
   res.status(200).json({
     status: 'ok',
     author,
-    githubUrl: 'https://github.com/humphd/fragments',
+    githubUrl: 'https://github.com/hnguyen110/Fragments.git',
     version,
   });
 });
