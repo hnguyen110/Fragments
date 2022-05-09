@@ -11,5 +11,8 @@
     "url": "git@github.com:hnguyen110/Fragments.git"
   },
   "author": "Hien Dao The Nguyen",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "prettier": "2.6.2"
+  }
 }
