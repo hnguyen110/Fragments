@@ -12,13 +12,16 @@ For starting the server and accepting the requests using the start script.
 npm start
 ```
 
-The development script will monitor changes in the source code and restart the server when there are changes. For starting the server in development mode and accepting the requests using the dev script.
+The development script will monitor changes in the source code and restart the server when there are changes. For
+starting the server in development mode and accepting the requests using the dev script.
 
 ```bash
 npm run dev
 ```
 
-The debug script will monitor changes in the source code and restart the server when there are changes like the development script, however, it also allow the developer to debug the application and see what happens during the development process. For starting the server in development mode and accepting the requests using the dev script.
+The debug script will monitor changes in the source code and restart the server when there are changes like the
+development script, however, it also allow the developer to debug the application and see what happens during the
+development process. For starting the server in development mode and accepting the requests using the dev script.
 
 ```bash
 npm run debug
