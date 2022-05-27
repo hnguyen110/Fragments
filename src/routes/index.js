@@ -1,5 +1,5 @@
 const express = require("express");
-const { authenticate } = require('../authorization');
+const {authenticate} = require("../authorization");
 
 const {version, author} = require("../../package.json");
 
