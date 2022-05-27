@@ -1,7 +1,11 @@
 const passport = require("passport");
 const BearerStrategy = require("passport-http-bearer").Strategy;
 const {CognitoJwtVerifier} = require("aws-jwt-verify");
-const logger = require("./logger");
+const logger = require("../logger");
+
+if (!(process.env.AWS_COGNITO_POOL_ID && process.env.AWS_COGNITO_CLIENT_ID)) {
+    throw new Error('Missing expected env vars: AWS_COGNITO_POOL_ID, AWS_COGNITO_CLIENT_ID');
+}
 
 const jwtVerifier = CognitoJwtVerifier.create({
     userPoolId: process.env.AWS_COGNITO_POOL_ID,
