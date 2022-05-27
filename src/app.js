@@ -5,6 +5,7 @@ const compression = require("compression");
 const passport = require("passport");
 const authorization = require("./authorization");
 const logger = require("./logger");
+const {createErrorResponse} = require("./response");
 const pino = require("pino-http")({
     logger,
 });
@@ -36,11 +37,7 @@ app.use((err, req, res) => {
         logger.error({err}, `Error processing request`);
     }
 
-    res.status(status).json({
-        status: "error", error: {
-            message, code: status,
-        },
-    });
+    res.status(status).json(createErrorResponse(status, message));
 });
 
 module.exports = app;

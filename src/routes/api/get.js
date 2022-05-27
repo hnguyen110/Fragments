@@ -1,6 +1,4 @@
+const {createSuccessResponse} = require("../../response");
 module.exports = (req, res) => {
-    res.status(200).json({
-        status: "ok",
-        fragments: [],
-    });
+    res.status(200).json(createSuccessResponse({fragments: []}));
 };
