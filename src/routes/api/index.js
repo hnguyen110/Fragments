@@ -2,11 +2,6 @@ const express = require("express");
 
 const router = express.Router();
 
-router.get("/fragments", require("./get"));
-router.post("/fragments", rawBody(), require("./post"));
-
-module.exports = router;
-
 const rawBody = () =>
     express.raw({
         inflate: true,
@@ -16,3 +11,9 @@ const rawBody = () =>
             return Fragment.isSupportedType(type);
         },
     });
+
+router.get("/fragments", require("./get"));
+router.post("/fragments", rawBody(), require("./post"));
+
+module.exports = router;
+
