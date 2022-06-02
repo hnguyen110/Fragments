@@ -91,8 +91,7 @@ class Fragment {
      * @returns Promise<Fragment>
      */
     static async byId(ownerId, id) {
-        const result = await readFragment(ownerId, id);
-        return new Fragment(result);
+        return await readFragment(ownerId, id);
     }
 
     /**
@@ -112,7 +111,7 @@ class Fragment {
      */
     static isSupportedType(value) {
         let isSupported = false;
-        const supportedType = [
+        const supportedTypes = [
             "text/plain",
             "text/markdown",
             "text/html",
@@ -122,12 +121,32 @@ class Fragment {
             "image/webp",
             "image/gif",
         ];
-        supportedType.forEach((supportedType) => {
+        supportedTypes.forEach((supportedType) => {
             if (value.includes(supportedType) || value.includes(`${supportedType}; charset=`)) {
                 isSupported = true;
             }
         });
         return isSupported;
+    }
+
+    isConvertible(value) {
+        let isConvertible = false;
+        const supportedTypesAndExtensions = {
+            "text/plain	": [".txt"],
+            "text/markdown": [".md", ".html", ".txt"],
+            "text/html": [".html", ".txt"],
+            "application/json": [".json", ".txt"],
+            "image/png": [".png", ".jpg", ".webp", ".gif"],
+            "image/jpeg": [".png", ".jpg", ".webp", ".gif"],
+            "image/webp": [".png", ".jpg", ".webp", ".gif"],
+            "image/gif": [".png", ".jpg", ".webp", ".gif"],
+        };
+        Object.keys(supportedTypesAndExtensions).forEach((key) => {
+            if (this.mimeType.startsWith(key))
+                if (supportedTypesAndExtensions[key].includes(value))
+                    isConvertible = true;
+        });
+        return isConvertible;
     }
 
     /**
@@ -143,8 +162,8 @@ class Fragment {
      * Gets the fragment's data from the database
      * @returns Promise<Buffer>
      */
-    getData() {
-        return readFragmentData(this.ownerId, this.id);
+    async getData() {
+        return await readFragmentData(this.ownerId, this.id);
     }
 
     /**
