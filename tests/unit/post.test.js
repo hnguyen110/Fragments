@@ -34,7 +34,7 @@ describe("POST /v1/fragments", () => {
         expect(typeof response.body.fragment.type).toBe("string");
         expect(typeof response.body.fragment.size).toBe("number");
         expect(response.body.fragment.type).toBe("text/plain");
-        // expect(_.isEqual(response.body.fragment.created, response.body.fragment.updated)).toBe(true)
+        expect(response.body.fragment.created).toBe(response.body.fragment.updated);
         expect(Date.parse(response.body.fragment.created)).not.toBeNaN();
         expect(Date.parse(response.body.fragment.updated)).not.toBeNaN();
         expect(response.headers["location"]).toBe(`${process.env.API_URL}:${process.env.PORT}/v1/fragments/${response.body.fragment.id}`);
