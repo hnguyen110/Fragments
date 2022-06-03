@@ -1,5 +1,5 @@
 const request = require("supertest");
-const _ = require("lodash");
+// const _ = require("lodash");
 
 const app = require("../../src/app");
 
