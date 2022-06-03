@@ -35,7 +35,7 @@ describe("GET /fragments/:id/info", () => {
         expect(typeof response.body.fragment.type).toBe("string");
         expect(typeof response.body.fragment.size).toBe("number");
         expect(response.body.fragment.type).toBe("text/plain");
-        expect(response.body.fragment.created).toBe(response.body.fragment.updated);
+        expect(new Date(response.body.fragment.updated) >= new Date(response.body.fragment.created)).toBe(true);
         expect(Date.parse(response.body.fragment.created)).not.toBeNaN();
         expect(Date.parse(response.body.fragment.updated)).not.toBeNaN();
     });
