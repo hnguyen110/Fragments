@@ -2,9 +2,9 @@ const request = require("supertest");
 const app = require("../../src/app");
 
 describe("DELETE /v1/fragments/:id", () => {
-    test("unauthenticated requests are denied", () => request(app).post("/v1/fragments").expect(401));
+    test("unauthenticated requests are denied", () => request(app).delete("/v1/fragments/id").expect(401));
 
-    test("incorrect credentials are denied", () => request(app).post("/v1/fragments").auth("invalid@email.com", "incorrect_password").expect(401));
+    test("incorrect credentials are denied", () => request(app).delete("/v1/fragments/id").auth("invalid@email.com", "incorrect_password").expect(401));
 
     test("delete the fragment with the invalid id are denied", async () => {
         const response = await request(app)
