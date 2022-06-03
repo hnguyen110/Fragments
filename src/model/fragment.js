@@ -13,14 +13,30 @@ const {
     listFragments,
     deleteFragment,
 } = require("./data");
+const logger = require("../logger");
 
 class Fragment {
     constructor({id, ownerId, created, updated, type, size = 0}) {
-        if (!ownerId) throw new Error("The owner ID is required");
-        if (!type) throw new Error("The type of fragment is required");
-        if (typeof size !== "number") throw new Error("The size of fragment must be a number");
-        if (size < 0) throw new Error("The size of fragment can not be negative");
-        if (!Fragment.isSupportedType(type)) throw new Error("The mimetype is not supported");
+        if (!ownerId) {
+            logger.error({}, "The owner ID is required");
+            throw new Error("The owner ID is required");
+        }
+        if (!type) {
+            logger.error({}, "The type of fragment is required");
+            throw new Error("The type of fragment is required");
+        }
+        if (typeof size !== "number") {
+            logger.error({}, "The size of fragment must be a number");
+            throw new Error("The size of fragment must be a number");
+        }
+        if (size < 0) {
+            logger.error({}, "The size of fragment can not be negative");
+            throw new Error("The size of fragment can not be negative");
+        }
+        if (!Fragment.isSupportedType(type)) {
+            logger.error({}, "The mimetype is not supported");
+            throw new Error("The mimetype is not supported");
+        }
 
         this.id = id ?? nanoid();
         this.ownerId = ownerId;
@@ -93,7 +109,10 @@ class Fragment {
      */
     static async byId(ownerId, id) {
         const fragment = await readFragment(ownerId, id);
-        if (!fragment) throw new Error("The fragment can not be found");
+        if (!fragment) {
+            logger.error({}, "The fragment can not be found");
+            throw new Error("The fragment can not be found");
+        }
         return fragment;
     }
 
@@ -178,7 +197,10 @@ class Fragment {
      * @returns Promise
      */
     async setData(data) {
-        if (!data) throw new Error("The buffer data is required");
+        if (!data) {
+            logger.error({}, "The buffer data is required");
+            throw new Error("The buffer data is required");
+        }
         this.updated = new Date().toISOString();
         this.size = data.length;
         return await writeFragmentData(this.ownerId, this.id, data);

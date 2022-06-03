@@ -1,6 +1,7 @@
 const crypto = require("crypto");
 const {Fragment} = require("../../model/fragment");
 const {createErrorResponse, createSuccessResponse} = require("../../response");
+const logger = require("../../logger");
 
 module.exports = async (req, res) => {
     const id = req.params.id;
@@ -10,6 +11,7 @@ module.exports = async (req, res) => {
         await Fragment.delete(ownerId, id);
         res.status(200).json(createSuccessResponse());
     } catch (e) {
+        logger.error({e}, "The fragment can not be found");
         res.status(404)
             .json(createErrorResponse(404, "The fragment can not be found"));
     }

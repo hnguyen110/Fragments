@@ -2,9 +2,11 @@ const crypto = require("crypto");
 const contentType = require("content-type");
 const {Fragment} = require("../../model/fragment");
 const {createSuccessResponse, createErrorResponse} = require("../../response");
+const logger = require("../../logger");
 
 module.exports = async (req, res) => {
     if (Object.keys(req.body).length === 0) {
+        logger.error({}, "The content type is not supported");
         res.status(415).json(createErrorResponse(415, "The content type is not supported"));
     }
     else {

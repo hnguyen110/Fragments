@@ -2,6 +2,7 @@ const crypto = require("crypto");
 const mimeTypes = require("mime-types");
 const {Fragment} = require("../../model/fragment");
 const {createErrorResponse} = require("../../response");
+const logger = require("../../logger");
 
 module.exports = async (req, res) => {
     const [id, extension] = req.params.id.split(".");
@@ -15,6 +16,7 @@ module.exports = async (req, res) => {
         else {
             res.set("Content-Type", mimeTypes.lookup(extension));
             if (!fragment.isConvertible(extension)) {
+                logger.error({}, "The fragment can not be converted or the given extension is not supported");
                 res.status(415)
                     .json(createErrorResponse(415, "The fragment can not be converted or the given extension is not supported"));
             }
@@ -24,6 +26,7 @@ module.exports = async (req, res) => {
             }
         }
     } catch (e) {
+        logger.error({e}, "The fragment can not be found");
         res.status(404)
             .json(createErrorResponse(404, "The fragment can not be found"));
     }
