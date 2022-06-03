@@ -20,6 +20,7 @@ describe("GET /v1/fragments", () => {
     test("authenticated users get an fragments array (ids)", async () => {
         let response;
         const ids = [];
+        const fragments = [];
 
         response = await request(app)
             .post("/v1/fragments")
@@ -27,6 +28,7 @@ describe("GET /v1/fragments", () => {
             .set("Content-Type", "text/plain")
             .send("Hello the world");
         ids.push(response.body.fragment.id);
+        fragments.push(response.body.fragment);
 
         response = await request(app)
             .post("/v1/fragments")
@@ -34,6 +36,7 @@ describe("GET /v1/fragments", () => {
             .set("Content-Type", "text/plain")
             .send("Hello the world");
         ids.push(response.body.fragment.id);
+        fragments.push(response.body.fragment);
 
         response = await request(app)
             .post("/v1/fragments")
@@ -41,12 +44,25 @@ describe("GET /v1/fragments", () => {
             .set("Content-Type", "text/plain")
             .send("Hello the world");
         ids.push(response.body.fragment.id);
+        fragments.push(response.body.fragment);
 
         response = await request(app).get("/v1/fragments").auth("user1@email.com", "password1");
         expect(response.statusCode).toBe(200);
         expect(response.body.status).toBe("ok");
         expect(Array.isArray(response.body.fragments)).toBe(true);
         expect(_.isEqual(ids.sort(), response.body.fragments.sort())).toBe(true);
+        expect(response.body.fragments.length).toBe(3);
+        response = await request(app).get("/v1/fragments?expand=0").auth("user1@email.com", "password1");
+        expect(response.statusCode).toBe(200);
+        expect(response.body.status).toBe("ok");
+        expect(Array.isArray(response.body.fragments)).toBe(true);
+        expect(_.isEqual(ids.sort(), response.body.fragments.sort())).toBe(true);
+        expect(response.body.fragments.length).toBe(3);
+        response = await request(app).get("/v1/fragments?expand=1").auth("user1@email.com", "password1");
+        expect(response.statusCode).toBe(200);
+        expect(response.body.status).toBe("ok");
+        expect(Array.isArray(response.body.fragments)).toBe(true);
+        expect(_.isEqual(fragments.sort(), response.body.fragments.sort())).toBe(true);
         expect(response.body.fragments.length).toBe(3);
     });
 });
