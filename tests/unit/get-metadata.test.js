@@ -24,7 +24,7 @@ describe("GET /fragments/:id/info", () => {
         id = response.body.fragment.id;
         response = await request(app)
             .get(`/v1/fragments/${id}/info`)
-            .auth("user1@email.com", "password1")
+            .auth("user1@email.com", "password1");
         expect(response.statusCode).toBe(200);
         expect(response.headers["content-type"]).toContain("application/json");
         expect(response.body.status).toBe("ok");
