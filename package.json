@@ -19,9 +19,11 @@
   "author": "Hien Dao The Nguyen",
   "license": "UNLICENSED",
   "devDependencies": {
+    "@types/lodash": "^4.14.182",
     "@types/supertest": "^2.0.12",
     "eslint": "^8.15.0",
     "jest": "^28.1.0",
+    "lodash": "^4.17.21",
     "nodemon": "^2.0.16",
     "prettier": "2.6.2",
     "supertest": "^6.2.3"
