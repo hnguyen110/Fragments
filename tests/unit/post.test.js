@@ -1,5 +1,4 @@
 const request = require("supertest");
-// const _ = require("lodash");
 
 const app = require("../../src/app");
 
@@ -36,7 +35,7 @@ describe("POST /v1/fragments", () => {
         expect(response.body.fragment.type).toBe("text/plain");
         expect(Date.parse(response.body.fragment.created)).not.toBeNaN();
         expect(Date.parse(response.body.fragment.updated)).not.toBeNaN();
-            expect(new Date(response.body.fragment.updated) >= new Date(response.body.fragment.created)).toBe(true);
+        expect(new Date(response.body.fragment.updated) >= new Date(response.body.fragment.created)).toBe(true);
         expect(response.headers["location"]).toBe(`${process.env.API_URL}:${process.env.PORT}/v1/fragments/${response.body.fragment.id}`);
     });
 });
