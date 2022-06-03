@@ -19,6 +19,7 @@
   "author": "Hien Dao The Nguyen",
   "license": "UNLICENSED",
   "devDependencies": {
+    "@types/supertest": "^2.0.12",
     "eslint": "^8.15.0",
     "jest": "^28.1.0",
     "nodemon": "^2.0.16",
