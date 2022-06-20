@@ -4,10 +4,13 @@
 coverage/
 node_modules/
 tests/
-!tests/.htpasswd
+tests/.htpasswd
 .env
+.env.jest
 .eslintrc.js
 .git/
 .gitignore
 .prettier*
 jest*
+jest.config.js
+README.md
