@@ -1,13 +1,11 @@
-FROM node:lts-alpine3.16
-LABEL maintainer="Hien Dao The Nguyen"
-LABEL description="Fragments API microservice"
-ENV PORT=8080
-ENV NPM_CONFIG_LOGLEVEL=warn
-ENV NPM_CONFIG_COLOR=false
+FROM node:lts-alpine3.16 AS build
 WORKDIR /app
-COPY ./tests/.htpasswd ./tests/.htpasswd
 COPY package.json package-lock.json ./
-RUN npm install
+RUN npm ci --only=production
 COPY ./src ./src
+
+FROM node:lts-alpine3.16
+WORKDIR /app
+COPY --from=build /app ./
 CMD npm start
 EXPOSE 8080
