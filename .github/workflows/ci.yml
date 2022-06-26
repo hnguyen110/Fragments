@@ -65,7 +65,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push
         env:
-          DOCKERHUB_REPO: 148568542885.dkr.ecr.us-east-1.amazonaws.com/fragments
+          DOCKERHUB_REPO: hnguyen110/fragments
           SHA_TAG: sha-${{ github.sha }}
         uses: docker/build-push-action@v2
         with:
