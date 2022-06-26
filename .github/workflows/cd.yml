@@ -32,8 +32,8 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: fragments
-          IMAGE_TAG: ${{ github.sha }}
           VERSION_TAG: ${{ github.ref_name }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:$VERSION_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
-          docker push --all-tags $ECR_REGISTRY/$ECR_REPOSITORY
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$VERSION_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
+          docker push --all-tags $ECR_REGISTRY/$ECR_REPOSITORY:$VERSION_TAG 
+          docker push --all-tags $ECR_REGISTRY/$ECR_REPOSITORY:latest
