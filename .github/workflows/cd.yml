@@ -31,7 +31,7 @@ jobs:
       - name: Build and push to Amazon ECR
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: 148568542885.dkr.ecr.us-east-1.amazonaws.com/fragments
+          ECR_REPOSITORY: fragments
           IMAGE_TAG: ${{ github.sha }}
           VERSION_TAG: ${{ github.ref_name }}
         run: |
