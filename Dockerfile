@@ -7,5 +7,5 @@ COPY ./src ./src
 FROM node:lts-alpine3.16
 WORKDIR /app
 COPY --from=build /app ./
-CMD npm start
+CMD ["npm", "start"]
 EXPOSE 8080
