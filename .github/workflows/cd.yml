@@ -35,5 +35,5 @@ jobs:
           VERSION_TAG: ${{ github.ref_name }}
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$VERSION_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
-          docker push --all-tags $ECR_REGISTRY/$ECR_REPOSITORY:$VERSION_TAG 
-          docker push --all-tags $ECR_REGISTRY/$ECR_REPOSITORY:latest
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$VERSION_TAG 
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
