@@ -37,3 +37,25 @@ jobs:
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$VERSION_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$VERSION_TAG 
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+      - name: Create compose file with specific Docker image info
+        env:
+          DOCKER_REPO: ${{ steps.login-ecr.outputs.registry }}/prosper-ui
+          DOCKER_TAG: ${{ github.ref_name }}
+          COMPOSE_FILE: deploy-${{ github.ref_name }}.yml
+        run: |
+          envsubst < docker-compose.yml > ${{ env.COMPOSE_FILE }}
+          echo "Created ${{ env.COMPOSE_FILE }}"
+      - name: Deploy to Elastic Beanstalk
+        env:
+          VERSION: ${{ github.ref_name }}
+          COMPOSE_FILE: deploy-${{ github.ref_name }}.yml
+        uses: einaregilsson/beanstalk-deploy@v20
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          region: us-east-1
+          application_name: fragments
+          environment_name: fragments-env
+          version_label: ${{ env.VERSION }}
+          deployment_package: ${{ env.COMPOSE_FILE }}
