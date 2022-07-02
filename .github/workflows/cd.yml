@@ -39,7 +39,7 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
       - name: Create compose file with specific Docker image info
         env:
-          DOCKER_REPO: ${{ steps.login-ecr.outputs.registry }}/prosper-ui
+          DOCKER_REPO: ${{ steps.login-ecr.outputs.registry }}/fragments
           DOCKER_TAG: ${{ github.ref_name }}
           COMPOSE_FILE: deploy-${{ github.ref_name }}.yml
         run: |
