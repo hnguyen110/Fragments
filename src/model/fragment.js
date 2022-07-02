@@ -2,7 +2,6 @@
 const {nanoid} = require("nanoid");
 // Use https://www.npmjs.com/package/content-type to create/parse Content-Type headers
 const contentType = require("content-type");
-const mimeTypes = require("mime-types");
 
 // Functions for working with fragment metadata/data using our DB
 const {
@@ -164,8 +163,8 @@ class Fragment {
             "image/gif": [".png", ".jpg", ".webp", ".gif"],
         };
         for (const [key, value] of Object.entries(supportedTypesAndExtensions)) {
-            if (key === mimeTypes.lookup(extension)) {
-                if (value.includes(`.${extension}`) && value.includes(`.${mimeTypes.extension(this.mimeType)}`)) {
+            if (key === this.mimeType) {
+                if (value.includes(`.${extension}`)) {
                     isConvertible = true;
                 }
             }
