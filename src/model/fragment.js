@@ -164,8 +164,8 @@ class Fragment {
             "image/gif": [".png", ".jpg", ".webp", ".gif"],
         };
         for (const [key, value] of Object.entries(supportedTypesAndExtensions)) {
-            if (key === mimeTypes.lookup(extension)) {
-                if (value.includes(`.${extension}`) && value.includes(`.${mimeTypes.extension(this.mimeType)}`)) {
+            if (key === this.mimeType) {
+                if (value.includes(`.${extension}`)) {
                     isConvertible = true;
                 }
             }

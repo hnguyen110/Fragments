@@ -14,7 +14,6 @@ module.exports = async (req, res) => {
             res.status(200).send(await fragment.getData());
         }
         else {
-            res.set("Content-Type", mimeTypes.lookup(extension));
             if (!fragment.isConvertible(extension)) {
                 logger.error({}, "The fragment can not be converted or the given extension is not supported");
                 res.status(415)

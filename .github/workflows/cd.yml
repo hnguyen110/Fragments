@@ -46,7 +46,7 @@ jobs:
         run: |
           envsubst < docker-compose.yml > ${{ env.COMPOSE_FILE }}
           echo "Created ${{ env.COMPOSE_FILE }}"
-          
+
       - name: Deploy to Elastic Beanstalk
         env:
           VERSION: ${{ github.ref_name }}

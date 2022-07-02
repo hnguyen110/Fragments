@@ -52,7 +52,7 @@ jobs:
         run: npm install-ci-test
   docker-hub:
     name: Build and Push to Docker Hub
-    needs: [lint, dockerfile-lint, unit-tests]
+    needs: [ lint, dockerfile-lint, unit-tests ]
     runs-on: ubuntu-latest
     steps:
       - name: Set up Docker Buildx

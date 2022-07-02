@@ -36,14 +36,14 @@ describe("GET /fragments/:id", () => {
         response = await request(app)
             .post("/v1/fragments")
             .auth("user1@email.com", "password1")
-            .set("Content-Type", "text/plain")
+            .set("Content-Type", "text/markdown")
             .send("Hello the world");
         id = response.body.fragment.id;
         response = await request(app)
-            .get(`/v1/fragments/${id}.md`)
+            .get(`/v1/fragments/${id}.txt`)
             .auth("user1@email.com", "password1");
         expect(response.statusCode).toBe(200);
-        expect(response.headers["content-type"]).toContain("text/markdown");
+        expect(response.headers["content-type"]).toContain("text/plain");
         expect(response.text).toBe("Hello the world");
     });
 
