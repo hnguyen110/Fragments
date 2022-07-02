@@ -2,7 +2,6 @@
 const {nanoid} = require("nanoid");
 // Use https://www.npmjs.com/package/content-type to create/parse Content-Type headers
 const contentType = require("content-type");
-const mimeTypes = require("mime-types");
 
 // Functions for working with fragment metadata/data using our DB
 const {
