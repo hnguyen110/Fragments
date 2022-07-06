@@ -9,4 +9,3 @@ WORKDIR /app
 COPY --from=build /app ./
 CMD ["npm", "start"]
 EXPOSE 8080
-
