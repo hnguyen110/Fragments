@@ -154,7 +154,7 @@ class Fragment {
         let isConvertible = false;
         const supportedTypesAndExtensions = {
             "text/plain": [".txt"],
-            "text/markdown": [".md", ".html", ".txt"],
+            "text/markdown": [".markdown", ".md", ".html", ".txt"],
             "text/html": [".html", ".txt"],
             "application/json": [".json", ".txt"],
             "image/png": [".png", ".jpg", ".webp", ".gif"],
