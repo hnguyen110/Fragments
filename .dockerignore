@@ -3,8 +3,6 @@
 .vscode/
 coverage/
 node_modules/
-tests/
-tests/.htpasswd
 .env
 .env.jest
 .eslintrc.js
@@ -12,5 +10,4 @@ tests/.htpasswd
 .gitignore
 .prettier*
 jest*
-jest.config.js
 README.md
