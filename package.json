@@ -6,8 +6,9 @@
   "scripts": {
     "test:watch": "jest -c jest.config.js --runInBand --watch --",
     "test": "jest -c jest.config.js --runInBand --",
+    "test:integration": "hurl --test --glob \"tests/integration/**/*.hurl\"",
     "coverage": "jest -c jest.config.js --runInBand --coverage",
-    "lint": "eslint --config .eslintrc.js src/** tests/**",
+    "lint": "eslint --no-error-on-unmatched-pattern --config .eslintrc.js src/** tests/** ",
     "start": "node src/index.js",
     "dev": "LOG_LEVEL=debug nodemon ./src/index.js --watch src",
     "debug": "LOG_LEVEL=debug nodemon --inspect=0.0.0.0:9229 ./src/index.js --watch src"
@@ -19,6 +20,7 @@
   "author": "Hien Dao The Nguyen",
   "license": "UNLICENSED",
   "devDependencies": {
+    "@orangeopensource/hurl": "^1.6.5",
     "@types/lodash": "^4.14.182",
     "@types/supertest": "^2.0.12",
     "eslint": "^8.15.0",
