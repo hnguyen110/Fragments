@@ -11,7 +11,7 @@ const {
     writeFragmentData,
     listFragments,
     deleteFragment,
-} = require("./data");
+} = require("./data/memory");
 const logger = require("../logger");
 
 class Fragment {
