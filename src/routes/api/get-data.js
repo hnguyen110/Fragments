@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
     try {
         const fragment = await Fragment.byId(ownerId, id);
         if (!extension) {
-            res.set("Content-Type", fragment.mimeType);
+            res.set("Content-Type", fragment.type);
             res.status(200).send(await fragment.getData());
         }
         else {
