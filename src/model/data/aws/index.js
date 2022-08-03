@@ -83,7 +83,7 @@ async function listFragments(ownerId, expand = false) {
                     size: item.size.N,
                     updated: item.updated.S,
                     created: item.created.S
-                }
+                };
             });
     } catch (err) {
         logger.error({err}, "error getting all fragments for user from DynamoDB");
