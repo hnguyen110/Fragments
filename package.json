@@ -1,7 +1,7 @@
 {
   "name": "fragments",
   "private": true,
-  "version": "0.7.19",
+  "version": "0.7.23",
   "description": "Fragments API",
   "scripts": {
     "test:watch": "jest -c jest.config.js --runInBand --watch --",
@@ -31,7 +31,9 @@
     "supertest": "^6.2.3"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.142.0",
     "@aws-sdk/client-s3": "^3.135.0",
+    "@aws-sdk/lib-dynamodb": "^3.142.0",
     "aws-jwt-verify": "^2.1.3",
     "compression": "^1.7.4",
     "content-type": "^1.0.4",

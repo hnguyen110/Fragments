@@ -1,9 +1,6 @@
 // Use https://www.npmjs.com/package/nanoid to create unique IDs
 const {nanoid} = require("nanoid");
-// Use https://www.npmjs.com/package/content-type to create/parse Content-Type headers
 const contentType = require("content-type");
-
-// Functions for working with fragment metadata/data using our DB
 const {
     readFragment,
     writeFragment,
@@ -11,7 +8,7 @@ const {
     writeFragmentData,
     listFragments,
     deleteFragment,
-} = require("./data/memory");
+} = require("./data/index");
 const logger = require("../logger");
 
 class Fragment {

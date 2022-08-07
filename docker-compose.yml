@@ -15,3 +15,4 @@ services:
       - AWS_REGION=us-east-1
       - HTPASSWD
       - AWS_S3_BUCKET_NAME=${AWS_S3_BUCKET_NAME:-fragments}
+      - AWS_DYNAMODB_TABLE_NAME=${AWS_DYNAMODB_TABLE_NAME:-fragments}

@@ -8,9 +8,10 @@ module.exports = async (req, res) => {
     const [id, extension] = req.params.id.split(".");
     const ownerId = crypto.createHash("sha256").update(req.user).digest("base64");
     try {
-        const fragment = await Fragment.byId(ownerId, id);
+        const metadata = await Fragment.byId(ownerId, id);
+        const fragment = new Fragment({...metadata});
         if (!extension) {
-            res.set("Content-Type", fragment.mimeType);
+            res.set("Content-Type", fragment?.mimeType);
             res.status(200).send(await fragment.getData());
         }
         else {
