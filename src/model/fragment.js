@@ -130,6 +130,7 @@ class Fragment {
     static isSupportedType(value) {
         let isSupported = false;
         const supportedTypes = [
+            "application/octet-stream",
             "text/plain",
             "text/markdown",
             "text/html",

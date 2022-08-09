@@ -1,8 +1,10 @@
 const crypto = require("crypto");
+const sharp = require("sharp");
 const mimeTypes = require("mime-types");
 const {Fragment} = require("../../model/fragment");
 const {createErrorResponse} = require("../../response");
 const logger = require("../../logger");
+const {raw} = require("express");
 
 module.exports = async (req, res) => {
     const [id, extension] = req.params.id.split(".");
@@ -11,14 +13,31 @@ module.exports = async (req, res) => {
         const metadata = await Fragment.byId(ownerId, id);
         const fragment = new Fragment({...metadata});
         if (!extension) {
-            res.set("Content-Type", fragment?.mimeType);
-            res.status(200).send(await fragment.getData());
+            const rawData = await fragment.getData();
+            if (fragment?.mimeType.startsWith("image")) {
+                const image = await sharp(rawData).toFormat("png").toBuffer();
+                res.set("Content-Type", fragment?.mimeType);
+                res.status(200).send(image);
+            }
+            else {
+                res.set("Content-Type", fragment?.mimeType);
+                res.status(200).send(rawData);
+            }
         }
         else {
             if (!fragment.isConvertible(extension)) {
-                logger.error({}, "The fragment can not be converted or the given extension is not supported");
-                res.status(415)
-                    .json(createErrorResponse(415, "The fragment can not be converted or the given extension is not supported"));
+                logger.error(
+                    {},
+                    "The fragment can not be converted or the given extension is not supported"
+                );
+                res
+                    .status(415)
+                    .json(
+                        createErrorResponse(
+                            415,
+                            "The fragment can not be converted or the given extension is not supported"
+                        )
+                    );
             }
             else {
                 res.set("Content-Type", mimeTypes.lookup(extension));
@@ -27,7 +46,6 @@ module.exports = async (req, res) => {
         }
     } catch (e) {
         logger.error({e}, "The fragment can not be found");
-        res.status(404)
-            .json(createErrorResponse(404, "The fragment can not be found"));
+        res.status(404).json(createErrorResponse(404, "The fragment can not be found"));
     }
 };
