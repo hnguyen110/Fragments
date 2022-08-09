@@ -4,7 +4,17 @@ const multer = require("multer");
 const {Fragment} = require("../../model/fragment");
 
 const router = express.Router();
-const uploader = multer();
+const uploader = multer({
+    limits: {fileSize: 1024 * 1024 * 5},
+    fileFilter: (request, file, callback) => {
+        if (!Fragment.isSupportedType(file.mimetype)) {
+            return callback(new Error("The content type is not supported"), false);
+        }
+        else {
+            callback(null, true);
+        }
+    }
+});
 
 const rawBody = () =>
     express.raw({
