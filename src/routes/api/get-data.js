@@ -4,7 +4,6 @@ const mimeTypes = require("mime-types");
 const {Fragment} = require("../../model/fragment");
 const {createErrorResponse} = require("../../response");
 const logger = require("../../logger");
-const {raw} = require("express");
 
 module.exports = async (req, res) => {
     const [id, extension] = req.params.id.split(".");
