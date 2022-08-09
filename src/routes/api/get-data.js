@@ -14,7 +14,35 @@ module.exports = async (req, res) => {
         if (!extension) {
             const rawData = await fragment.getData();
             if (fragment?.mimeType.startsWith("image")) {
-                const image = await sharp(rawData).toFormat("png").toBuffer();
+                let image;
+                switch (fragment.mimeType) {
+                    case "image/png":
+                        image = await sharp(rawData)
+                            .png()
+                            .toBuffer();
+                        break;
+                    case "image/jpeg":
+                        image = await sharp(rawData)
+                            .jpeg()
+                            .toBuffer();
+                        break;
+                    case "image/webp":
+                        image = await sharp(rawData)
+                            .webp()
+                            .toBuffer();
+                        break;
+                    case "image/gif":
+                        image = await sharp(rawData)
+                            .webp()
+                            .toBuffer();
+                        break;
+                    default:
+                        image = await sharp(rawData)
+                            .png()
+                            .toBuffer();
+                        break;
+                }
+
                 res.set("Content-Type", fragment?.mimeType);
                 res.status(200).send(image);
             }
