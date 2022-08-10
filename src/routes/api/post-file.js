@@ -4,7 +4,7 @@ const {createSuccessResponse, createErrorResponse} = require("../../response");
 const logger = require("../../logger");
 
 module.exports = async (req, res) => {
-    if (!Buffer.isBuffer(req.file.buffer)) {
+    if (!Buffer.isBuffer(req?.file?.buffer)) {
         logger.error({}, "The content type is not supported");
         res.status(415).json(createErrorResponse(415, "The content type is not supported"));
     }

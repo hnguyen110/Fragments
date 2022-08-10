@@ -8,7 +8,7 @@ const uploader = multer({
     limits: {fileSize: 1024 * 1024 * 5},
     fileFilter: (request, file, callback) => {
         if (!Fragment.isSupportedType(file.mimetype)) {
-            return callback(new Error("The content type is not supported"), false);
+            callback(null, false);
         }
         else {
             callback(null, true);
