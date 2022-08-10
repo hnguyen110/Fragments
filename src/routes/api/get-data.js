@@ -13,43 +13,8 @@ module.exports = async (req, res) => {
         const fragment = new Fragment({...metadata});
         if (!extension) {
             const rawData = await fragment.getData();
-            if (fragment?.mimeType.startsWith("image")) {
-                let image;
-                switch (fragment.mimeType) {
-                    case "image/png":
-                        image = await sharp(rawData)
-                            .png()
-                            .toBuffer();
-                        break;
-                    case "image/jpeg":
-                        image = await sharp(rawData)
-                            .jpeg()
-                            .toBuffer();
-                        break;
-                    case "image/webp":
-                        image = await sharp(rawData)
-                            .webp()
-                            .toBuffer();
-                        break;
-                    case "image/gif":
-                        image = await sharp(rawData)
-                            .webp()
-                            .toBuffer();
-                        break;
-                    default:
-                        image = await sharp(rawData)
-                            .png()
-                            .toBuffer();
-                        break;
-                }
-
-                res.set("Content-Type", fragment?.mimeType);
-                res.status(200).send(image);
-            }
-            else {
-                res.set("Content-Type", fragment?.mimeType);
-                res.status(200).send(rawData);
-            }
+            res.set("Content-Type", fragment?.mimeType);
+            res.status(200).send(rawData);
         }
         else {
             if (!fragment.isConvertible(extension)) {
@@ -68,7 +33,41 @@ module.exports = async (req, res) => {
             }
             else {
                 res.set("Content-Type", mimeTypes.lookup(extension));
-                res.status(200).send(await fragment.getData());
+                const rawData = await fragment.getData();
+                if (fragment?.mimeType.startsWith("image")) {
+                    let image;
+                    switch (extension) {
+                        case "png":
+                            image = await sharp(rawData)
+                                .png()
+                                .toBuffer();
+                            break;
+                        case "jpeg":
+                            image = await sharp(rawData)
+                                .jpeg()
+                                .toBuffer();
+                            break;
+                        case "webp":
+                            image = await sharp(rawData)
+                                .webp()
+                                .toBuffer();
+                            break;
+                        case "gif":
+                            image = await sharp(rawData)
+                                .webp()
+                                .toBuffer();
+                            break;
+                        default:
+                            image = await sharp(rawData)
+                                .png()
+                                .toBuffer();
+                            break;
+                    }
+                    res.status(200).send(image);
+                }
+                else {
+                    res.status(200).send(rawData);
+                }
             }
         }
     } catch (e) {

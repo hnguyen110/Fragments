@@ -61,4 +61,64 @@ describe("GET /fragments/:id", () => {
             .auth("user1@email.com", "password1");
         expect(response.statusCode).toBe(415);
     });
+
+    test("get fragment (image) with valid id and extension of png should return image in png format", async () => {
+        let response;
+        let id;
+        response = await request(app)
+            .post("/v1/fragments/file")
+            .auth("user1@email.com", "password1")
+            .attach("file", __dirname + "/../image.jpeg");
+        id = response.body.fragment.id;
+        response = await request(app)
+            .get(`/v1/fragments/${id}.png`)
+            .auth("user1@email.com", "password1");
+        expect(response.statusCode).toBe(200);
+        expect(response.headers["content-type"]).toContain("image/png");
+    });
+
+    test("get fragment (image) with valid id and extension of jpeg should return image in jpeg format", async () => {
+        let response;
+        let id;
+        response = await request(app)
+            .post("/v1/fragments/file")
+            .auth("user1@email.com", "password1")
+            .attach("file", __dirname + "/../image.jpeg");
+        id = response.body.fragment.id;
+        response = await request(app)
+            .get(`/v1/fragments/${id}.jpeg`)
+            .auth("user1@email.com", "password1");
+        expect(response.statusCode).toBe(200);
+        expect(response.headers["content-type"]).toContain("image/jpeg");
+    });
+
+    test("get fragment (image) with valid id and extension of webp should return image in webp format", async () => {
+        let response;
+        let id;
+        response = await request(app)
+            .post("/v1/fragments/file")
+            .auth("user1@email.com", "password1")
+            .attach("file", __dirname + "/../image.jpeg");
+        id = response.body.fragment.id;
+        response = await request(app)
+            .get(`/v1/fragments/${id}.webp`)
+            .auth("user1@email.com", "password1");
+        expect(response.statusCode).toBe(200);
+        expect(response.headers["content-type"]).toContain("image/webp");
+    });
+
+    test("get fragment (image) with valid id and extension of gif should return image in gif format", async () => {
+        let response;
+        let id;
+        response = await request(app)
+            .post("/v1/fragments/file")
+            .auth("user1@email.com", "password1")
+            .attach("file", __dirname + "/../image.jpeg");
+        id = response.body.fragment.id;
+        response = await request(app)
+            .get(`/v1/fragments/${id}.gif`)
+            .auth("user1@email.com", "password1");
+        expect(response.statusCode).toBe(200);
+        expect(response.headers["content-type"]).toContain("image/gif");
+    });
 });
