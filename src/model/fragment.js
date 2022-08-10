@@ -130,6 +130,7 @@ class Fragment {
     static isSupportedType(value) {
         let isSupported = false;
         const supportedTypes = [
+            // "application/octet-stream",
             "text/plain",
             "text/markdown",
             "text/html",
@@ -154,10 +155,10 @@ class Fragment {
             "text/markdown": [".markdown", ".md", ".html", ".txt"],
             "text/html": [".html", ".txt"],
             "application/json": [".json", ".txt"],
-            "image/png": [".png", ".jpg", ".webp", ".gif"],
-            "image/jpeg": [".png", ".jpg", ".webp", ".gif"],
-            "image/webp": [".png", ".jpg", ".webp", ".gif"],
-            "image/gif": [".png", ".jpg", ".webp", ".gif"],
+            "image/png": [".png", ".jpeg", ".jpg", ".webp", ".gif"],
+            "image/jpeg": [".png", ".jpeg", ".jpg", ".webp", ".gif"],
+            "image/webp": [".png", ".jpeg", ".jpg", ".webp", ".gif"],
+            "image/gif": [".png", ".jpeg", ".jpg", ".webp", ".gif"],
         };
         for (const [key, value] of Object.entries(supportedTypesAndExtensions)) {
             if (key === this.mimeType) {
